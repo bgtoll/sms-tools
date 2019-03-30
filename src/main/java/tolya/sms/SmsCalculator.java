@@ -15,7 +15,7 @@ public class SmsCalculator {
 	private int maxSmsParts;
 	private int smsParts;
 	
-	private static final Set<Character> GSM_7BIT = new HashSet<>(Arrays.asList(new Character[] {
+	protected static final Set<Character> GSM_7BIT = new HashSet<>(Arrays.asList(new Character[] {
 		'@', '£', '$', '¥', 'è', 'é', 'ù', 'ì', 'ò', 'Ç', '\n', 'Ø', 'ø', '\r', 'Å', 'å',
 		'Δ', '_', 'Φ', 'Γ', 'Λ', 'Ω', 'Π', 'Ψ', 'Σ', 'Θ', 'Ξ', '\u001b', 'Æ', 'æ', 'ß', 'É',
 		' ', '!', '\"', '#', '¤', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
@@ -26,7 +26,7 @@ public class SmsCalculator {
 		'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'ä', 'ö', 'ñ', 'ü', 'à'}
 	));
 		
-	private static final Set<Character> GSM_7BIT_EXT = new HashSet<>(Arrays.asList(
+	protected static final Set<Character> GSM_7BIT_EXT = new HashSet<>(Arrays.asList(
 		new Character[] {'\f', '^', '{', '}', '\\', '[', '~', ']', '|', '€'}
 	));
 	
