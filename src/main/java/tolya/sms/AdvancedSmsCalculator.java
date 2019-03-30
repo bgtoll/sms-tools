@@ -55,6 +55,12 @@ public class AdvancedSmsCalculator extends SmsCalculator {
 					}
 				}
 			}
+			
+			if (getSmsParts() > 1) {
+				for (int p = 0; p < getSmsParts(); p++) {
+					addHeader(p * getCharsInSms() + p * 6);
+				}
+			}
 		}
 		
 		return cache;
@@ -73,5 +79,15 @@ public class AdvancedSmsCalculator extends SmsCalculator {
 		super.reloadText(text);
 		cached = false;
 	}
-
+	
+	private void addHeader(int p) {
+		// In reverse to be able to use the position without increment
+		cache.add(p, new SmsChar('\u0001', SmsChar.TYPE_HEADER));
+		cache.add(p, new SmsChar('\u0002', SmsChar.TYPE_HEADER));
+		cache.add(p, new SmsChar('\u0012', SmsChar.TYPE_HEADER));
+		cache.add(p, new SmsChar('\u0003', SmsChar.TYPE_HEADER));
+		cache.add(p, new SmsChar('\u0000', SmsChar.TYPE_HEADER));
+		cache.add(p, new SmsChar('\u0005', SmsChar.TYPE_HEADER));
+	}
+	
 }

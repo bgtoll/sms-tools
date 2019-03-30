@@ -66,6 +66,10 @@ public class SmsCalculator {
 		return charset == GSM ? "GSM-03-38" : "UTF-8";
 	}
 	
+	public boolean isUTF() {
+		return charset == UNICODE;
+	}
+	
 	public int getCharsLeftAbsolute() {
 		return getMaxLengthAbsolute() - usedChars;
 	}
@@ -80,6 +84,10 @@ public class SmsCalculator {
 	
 	public int getMaxLengthCurrentPart() {
 		return smsParts > 1 ? SMS_LENGTHS[charset][1] * smsParts : SMS_LENGTHS[charset][0];
+	}
+	
+	public int getCharsInSms() {
+		return smsParts > 1 ? SMS_LENGTHS[charset][1] : SMS_LENGTHS[charset][0];
 	}
 	
 	public boolean isInRange() {

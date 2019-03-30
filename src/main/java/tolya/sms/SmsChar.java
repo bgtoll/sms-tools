@@ -37,9 +37,9 @@ public class SmsChar {
 		return color;
 	}
 	
-	@Override
-	public String toString() {
-		return ch + " -> " + type + " -> " + color;
-	}
+//	@Override
+//	public String toString() {
+//		return (ch == '\u0000' ? String.format("%x", (int) ch) : ch) + " -> " + type + " -> " + color;
+//	}
 	
 }
