@@ -1,11 +1,19 @@
-package tolya.sms;
+package tolya.sms.calc;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * <h1>Advanced SMS Calculator</h1>
+ * Used to show the user each character and what encoding is used for it. It's helpful to 
+ * understand why given SMS is charged as two or more - usually because of a single quote or special symbol. 
+ * This class extends {@link tolya.sms.calc.SmsCalculator SmsCalculator}, so the constructors are the same.
+ * 
+ * @author Anatoliy
+ */
 public class AdvancedSmsCalculator extends SmsCalculator {
-	private boolean cached;
+	private boolean analyzed;
 	private List<SmsChar> cache;
 	
 	public AdvancedSmsCalculator() {
@@ -20,12 +28,12 @@ public class AdvancedSmsCalculator extends SmsCalculator {
 		super(text);
 	}
 	
-	public List<SmsChar> getCharMap() {
-		if (!cached && getText() != null) {
-			cached = true;
-
+	/** Return list of {@link tolya.sms.calc.SmsChar SmsChar}. The result is cached and the text is
+	 *  analyzed only the first time or when it's changed. */
+	public List<SmsChar> getAnalyzedChars() {
+		if (!analyzed && getText() != null) {
 			char[] chars = getText().toCharArray();
-			cache = new ArrayList<>();
+			cache = new ArrayList<>(chars.length);
 			
 			boolean containsUnicode = false;
 			for (int i = 0; i < chars.length; i++) {
@@ -61,23 +69,25 @@ public class AdvancedSmsCalculator extends SmsCalculator {
 					addHeader(p * getCharsInSms() + p * 6);
 				}
 			}
+			
+			analyzed = true;
 		}
 		
 		return cache;
 	}
 	
-	public void printCharMap() {
-		for (SmsChar smsChar : getCharMap()) {
-			System.out.println(smsChar);
-		}
-		
-		System.out.println();
-	}
+//	public void printAnalyzedChars() {
+//		for (SmsChar smsChar : getAnalyzedChars()) {
+//			System.out.println(smsChar);
+//		}
+//		
+//		System.out.println();
+//	}
 	
 	@Override
 	public void reloadText(String text) {
 		super.reloadText(text);
-		cached = false;
+		analyzed = false;
 	}
 	
 	private void addHeader(int p) {
